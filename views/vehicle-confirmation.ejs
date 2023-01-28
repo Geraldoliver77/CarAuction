@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Profile</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../public/upload/css/animate.css">
+    
+    <link rel="stylesheet" href="../public/upload/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../public/upload/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../public/upload/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+    
+    <link rel="stylesheet" href="../public/upload/css/flaticon.css">
+    <link rel="stylesheet" href="../public/upload/css/adminstyle.css">
+  </head>
+  <body>
+     
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+          <a class="navbar-brand" href="index">Car<span>Auction</span></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+          </button>
+          <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active"><a href="/user-management" class="nav-link">ユーザ管理</a></li>
+              <li class="nav-item"><a href="/vehicle-management" class="nav-link">車両管理</a></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">オークション管理</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                      <!-- <a class="dropdown-item" href="/productregister">出品登録</a> -->
+                      <a class="dropdown-item" href="/auctionregister">オークション登録</a>
+                      <a class="dropdown-item" href="/bidsituation">入札状況</a>
+                </div>
+            </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">売上管理</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                      <a class="dropdown-item" href="/listinglist">落札一覧</a>
+                </div>
+              </li>
+            <li class="nav-item"><a class="nav-link" href="/">ログアウト</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    <!-- END nav -->
+
+    <section class="ftco-section">
+    	<div class="container">
+    		<div class="row justify-content-center">
+          <div class="col-xl-10 ftco-animate">
+            
+            <% for(var vehicle of values) { 
+                var d = vehicle.date %>
+              <form action="/updatevehicle?id=<%= vehicle.carid %>&&action=updateyes " class="billing-form" method="post">
+                <h3 class="mb-4 billing-heading">プロフィール</h3>
+	          	<div class="row align-items-end">
+
+                    <div class="w-100"></div>
+		            <div class="col-md-6">
+		            	<div class="form-group">
+	                	<label for="CarBrand">メーカー名</label><br>
+                        <select name="carbrand" class="form-control">
+                            <option value="HONDA">HONDA</option>
+                            <option value="TOYOTA">TOYOTA</option>
+                            <option value="MAZDA">MAZDA</option>
+                            <option value="LEXUS">LEXUS</option>
+                            <option value="BMW">BMW</option>
+                            <option value="AUDI">AUDI</option>
+                            <option value="MERCEDESZ-BENZ">MERCEDESZ-BENZ</option>
+                        </select>
+	                </div>
+		            </div>
+
+                <div class="w-100"></div>
+	          		<div class="col-md-6">
+	                <div class="form-group">
+	                	<label for="firstname">車種名</label>
+	                  <input type="text" class="form-control" value="<%= vehicle.carname %>" name="carname" required>
+	                </div>
+	              </div>
+
+		            <div class="w-100"></div>
+		            <div class="col-md-6">
+		            	<div class="form-group">
+	                	<label for="streetaddress">年式</label>
+	                  <input type="text" class="form-control" value="<%= vehicle.caryear %>" name="caryear" required>
+	                </div>
+		            </div>
+
+		            <div class="w-100"></div>
+		            <div class="col-md-6">
+		            	<div class="form-group">
+	                	<label for="towncity">色</label>
+	                  <input type="text" class="form-control" value="<%= vehicle.carcolor %>" name="carcolor" required>
+	                </div>
+		            </div>
+
+                <div class="w-100"></div>
+		            <div class="col-md-6">
+		            	<div class="form-group">
+		            		<label for="postcodezip">販売者ID</label>
+	                  <input type="text" class="form-control" value="<%= vehicle.sellerid %>" name="sellerid" required>
+	                </div>
+		            </div>
+
+                <div class="w-100"></div>
+                    <div class="col-md-6">
+		            	    <div class="form-group">
+                            <button class="btn btn-primary py-3 px-4">
+                                更新 
+                            </button>
+	                    </div>
+		                </div>
+                
+                    <% } %> 
+	          </form><!-- END -->
+          </div> <!-- .col-md-8 -->
+        </div>
+    	</div>
+    </section>
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src="../public/upload/js/jquery.min.js"></script>
+  <script src="../public/upload/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="../public/upload/js/popper.min.js"></script>
+  <script src="../public/upload/js/bootstrap.min.js"></script>
+  <script src="../public/upload/js/jquery.easing.1.3.js"></script>
+  <script src="../public/upload/js/jquery.waypoints.min.js"></script>
+  <script src="../public/upload/js/jquery.stellar.min.js"></script>
+  <script src="../public/upload/js/owl.carousel.min.js"></script>
+  <script src="../public/upload/js/jquery.magnific-popup.min.js"></script>
+  <script src="../public/upload/js/jquery.animateNumber.min.js"></script>
+  <script src="../public/upload/js/scrollax.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="../public/upload/js/google-map.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+  <script src="../public/upload/js/main.js"></script>
+    
+  </body>
+</html>

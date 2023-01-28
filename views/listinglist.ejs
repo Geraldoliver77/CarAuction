@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../public/upload/css/animate.css">
+    
+    <link rel="stylesheet" href="../public/upload/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../public/upload/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../public/upload/css/magnific-popup.css">
+    
+    <link rel="stylesheet" href="../public/upload/css/flaticon.css">
+    <link rel="stylesheet" href="../public/upload/css/adminstyle.css">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+          <a class="navbar-brand" href="index">Car<span>Auction</span></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+          </button>
+          <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item"><a href="/user-management" class="nav-link">ユーザ管理</a></li>
+              <li class="nav-item"><a href="/vehicle-management" class="nav-link">車両管理</a></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">オークション管理</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                      <a class="dropdown-item" href="/productregister">出品登録</a>
+                      <a class="dropdown-item" href="/auctionregister">オークション登録</a>
+                      <a class="dropdown-item" href="/bidsituation">入札状況</a>
+                </div>
+            </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">売上管理</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                      <a class="dropdown-item active" href="/listinglist">落札一覧</a>
+                </div>
+              </li>
+            <li class="nav-item"><a class="nav-link" href="/">ログアウト</a></li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <% var flag=0; %>
+
+    <section class="ftco-section">
+    	<div class="container">
+    		<div class="row">
+    			<div class="table-wrap">
+				<table class="table">
+					<thead class="thead-primary">
+					<tr>
+						<th>売上ID</th>
+                        <th>オークションID</th>
+						<th>車両ID</th>
+						<th>メーカー名</th>
+						<th>車種名</th>
+						<th>購入者</th>
+                        <th>メール</th>
+                        <th>購入金額</th>
+                        <th>購入日</th>
+                        <th></th>
+                        <th></th>
+					</tr>
+					</thead>
+
+				    <tbody>
+                    <% for(var bid of values) { %>
+				    <tr class="alert" role="alert">
+				        <td><%= bid.salesid %> </td>
+                        <td><%= bid.auctionid %> </td>
+                        <td> <%= bid.carid %> </td>
+                        <td><%= bid.carbrand %> </td>
+                        <td><%= bid.carname %> </td>    
+                        <td><%= bid.username %> </td>   
+
+                        <% if(bid.email==null) { flag=1; %>
+                        <td> 未送信 </td> 
+                        <% }else{ %>
+                        <td> 送信済み </td>
+                        <% } %>
+                        <td><%= bid.totalprice %> 円</td>
+                        <td><%= bid.date.toLocaleString() %> </td>
+
+                        <td>
+                        <% if(flag==1) { %>
+                        <form action="/sendemail?id=<%= bid.salesid %>&&carid=<%= bid.carid %>" method="POST">
+                        
+                            <button>メール送信</button>
+                        </form>
+                        <% }else{ %>
+                            <button>詳細確認</button>
+                        <% } %>
+
+                        </td>
+
+                        <td>
+                        <form action="/printpdf?id=<%= bid.salesid %>&&carid=<%= bid.carid %>" method="POST">
+                        
+                            <button>PDFを印刷</button>
+                        </form>
+
+                        </td>
+                    </tr>
+                    <% } %> 
+						  
+				</tbody>
+			</table>
+		</div>
+        <p id="form"></p>
+    	</div>
+    </div>
+     
+    </section>
+</body>
+
+</html>
+
+<script src="../public/upload/js/jquery.min.js"></script>
+<script src="../public/upload/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="../public/upload/js/popper.min.js"></script>
+<script src="../public/upload/js/bootstrap.min.js"></script>
+<script src="../public/upload/js/jquery.easing.1.3.js"></script>
+<script src="../public/upload/js/jquery.waypoints.min.js"></script>
+<script src="../public/upload/js/jquery.stellar.min.js"></script>
+<script src="../public/upload/js/owl.carousel.min.js"></script>
+<script src="../public/upload/js/jquery.magnific-popup.min.js"></script>
+<script src="../public/upload/js/jquery.animateNumber.min.js"></script>
+<script src="../public/upload/js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="../public/upload/js/google-map.js"></script>
+<script src="../public/upload/js/main.js"></script>

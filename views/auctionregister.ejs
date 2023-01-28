@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../public/upload/css/animate.css">
+    
+    <link rel="stylesheet" href="../public/upload/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../public/upload/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../public/upload/css/magnific-popup.css">
+    
+    <link rel="stylesheet" href="../public/upload/css/flaticon.css">
+    <link rel="stylesheet" href="../public/upload/css/adminstyle.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+          <a class="navbar-brand" href="index">Car<span>Auction</span></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+          </button>
+          <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item"><a href="/user-management" class="nav-link">ユーザ管理</a></li>
+              <li class="nav-item"><a href="/vehicle-management" class="nav-link">車両管理</a></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">オークション管理</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                      <!-- <a class="dropdown-item" href="/productregister">出品登録</a> -->
+                      <a class="dropdown-item active" href="/auctionregister">オークション登録</a>
+                      <a class="dropdown-item" href="/bidsituation">入札状況</a>
+                </div>
+            </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">売上管理</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                      <a class="dropdown-item" href="/listinglist">落札一覧</a>
+                </div>
+              </li>
+            <li class="nav-item"><a class="nav-link" href="/">ログアウト</a></li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+      <section class="ftco-section">
+    	<div class="container">
+    		<div class="row">
+    			<div class="table-wrap">
+						<table class="table">
+						  <thead class="thead-primary">
+						    <tr>
+						    	<th>Id</th>
+                                <th>メーカ名</th>
+						        <th>車種名</th>
+						        <th>年式</th>
+						        <th>色</th>
+						        <th>販売者</th>
+                                <th>開始価格</th>
+                                <th>即決価格</th>
+                                <th>登録日</th>
+                                <th></th>
+						    </tr>
+						  </thead>
+
+						  <tbody>
+                <% for(var vehicle of values) {
+                  var d = vehicle.date
+                  %> 
+				<tr class="alert" role="alert">
+				  <td><%= vehicle.carid %> </td>
+                  <td><%= vehicle.carbrand %> </td>
+                  <td><%= vehicle.carname %> </td>
+                  <td><%= vehicle.caryear %> </td>
+                  <td><%= vehicle.carcolor %> </td>    
+                  <td><%= vehicle.sellerid %> </td>   
+                  <td><%= vehicle.startingprice %> </td> 
+                  <td><%= vehicle.price %> 円 </td>        
+                  <td><%= d.toLocaleString();  %> </td> 
+                  <td>
+                    <button id="btn" onclick="register('<%= vehicle.carid %>')">オークション登録</button></a>    
+                  </td>   
+                  
+              <% } %> 
+						  
+				</tbody>
+			</table>
+		</div>
+        <p id="form"></p>
+    	</div>
+    </div>
+     
+      </section>
+
+</body>
+</html>
+
+<script src="../public/upload/js/jquery.min.js"></script>
+<script src="../public/upload/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="../public/upload/js/popper.min.js"></script>
+<script src="../public/upload/js/bootstrap.min.js"></script>
+<script src="../public/upload/js/jquery.easing.1.3.js"></script>
+<script src="../public/upload/js/jquery.waypoints.min.js"></script>
+<script src="../public/upload/js/jquery.stellar.min.js"></script>
+<script src="../public/upload/js/owl.carousel.min.js"></script>
+<script src="../public/upload/js/jquery.magnific-popup.min.js"></script>
+<script src="../public/upload/js/jquery.animateNumber.min.js"></script>
+<script src="../public/upload/js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="../public/upload/js/google-map.js"></script>
+<script src="../public/upload/js/main.js"></script>
+
+<script>
+var btn = document.getElementById("btn");
+var form= document.getElementById("form");
+
+function register(id){
+
+    form.innerHTML= 
+    "<form action='/registerauction?id="+ id + "' method='POST'> <p> ID : "+ id  +"</p> <label name='startingprice'> 開始価格 : <input type='text' name='startingprice' placeholder='0'><br><br> <label name='bidpervalue'> ビッド単位 : <input type='text' name='bidpervalue' placeholder='100'> <br><br> <label name='carcondition'> 車両状態 : <input type='text' name='carcondition' placeholder='未使用'> <br><br> <label name='shaken'> 車検 : <input type='text' name='shaken' placeholder='2022/12/25'> <br><br><label name='mileage'> 走行距離 : <input type='text' name='mileage' placeholder='10000km'> <br><br><label name='location'> ロケーション : <input type='text' name='location' placeholder='大阪市'> <br><br> <label name='startingtime'> 開始日付 : <input type='datetime-local' name='startingtime' > <br><br> <label name='finishtime'> 終了日付 : <input type='datetime-local' name='finishtime' > <br><br>   <button> 登録 </button> </form> ";
+
+
+}
+
+
+</script>
